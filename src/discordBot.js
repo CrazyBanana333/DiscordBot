@@ -120,25 +120,28 @@ client.on('interactionCreate', (interaction) => {
 })
 
 client.on('messageCreate', (message) => {    
-
     if (message.author.bot){
         return;
     }
-    if (message.content === 'should i watch twitch.tv/shyjinn?' || message.content === 'send the gif'){
-        message.reply("https://tenor.com/view/shyjinn-shyjinn-twitch-stream-twitch-gif-11659758548203600062");
-        }
-    if (message.content === 'is shyjinn live rn?'){
-        if(jsonData.isLive){
-            message.reply("You bet your ass he is");
-        } else {
-            message.reply("I wish :(");
-        }
-    }
-    if (message.content === 'test'){
-        //message.reply('winnig');n
-    }
-    if (message.content === 'date'){
-        //message.reply(mostRecentUploadDate.toString());
+
+    switch (message.content){
+        case 'should i watch twitch.tv/shyjinn?':
+        case 'send the gif':
+            message.reply("https://tenor.com/view/shyjinn-shyjinn-twitch-stream-twitch-gif-11659758548203600062");
+            break;
+        case 'is shyjinn live rn?':
+            if(jsonData.isLive){
+                message.reply("You bet your ass he is");
+            } else {
+                message.reply("I wish :(");
+            }
+            break;
+        case 'test':
+            //message.reply('winnig');
+            break;
+        case 'date':
+            //message.reply(mostRecentUploadDate.toString());
+            break;
     }
     function ifLive(data){
         if (data.length === 0){
