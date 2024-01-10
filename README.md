@@ -1,5 +1,5 @@
 # V 0.7.0
--Added randomized status messages
+- Added randomized status messages
 
 # V 0.6.2
 - changed some if statements to case switch because im better than yandere dev
