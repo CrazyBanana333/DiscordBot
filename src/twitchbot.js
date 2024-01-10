@@ -50,62 +50,69 @@ var fightParticipants = {}
 var textPicker = 0;
 
 client.on('message', (channel, tags, message, self) => {
-    // Ignore echoed messages.
     if(self) return;
 
-    if(message.toLowerCase() === '!c') {
-        // "@alca, heya!"
-        client.say(channel, `@${tags.username} the commands are: !lurk, !youtube, !tiktok, !insta, !fight, !cooked, and !cooks`);
+    switch(message.toLowerCase()){
+        case '!c':
+            client.say(channel, `@${tags.username} the commands are: !lurk, !youtube, !tiktok, !insta, !fight, !cooked, and !cooks`);
+            break;
 
-    } else if (message.toLowerCase() === '!lurk') {
-        client.say(channel, `thank you @${tags.username} for lurking! shyjin1Heart`);
-    } else if (message.toLowerCase() === '!youtube') {
-        client.say(channel, `@${tags.username} https://www.youtube.com/channel/UCfqAgoVQHLWrovN0MeZKdhA`);
-    } else if (message.toLowerCase() === '!tiktok'){
-        client.say(channel, `@${tags.username} https://www.tiktok.com/@shyjinn_`);
-    } else if (message.toLowerCase() === '!insta'){
-        client.say(channel, `@${tags.username} https://www.instagram.com/shyjinnn`);
-    } else if (message.toLowerCase() === '!fight'){
-        
+        case '!lurk':
+            client.say(channel, `thank you @${tags.username} for lurking! shyjin1Heart`);
+            break;
+        case '!youtube':
+            client.say(channel, `@${tags.username} https://www.youtube.com/channel/UCfqAgoVQHLWrovN0MeZKdhA`);
+            break;
+        case '!tiktok':
+            client.say(channel, `@${tags.username} https://www.tiktok.com/@shyjinn_`);
+            break;
+        case '!insta':
+            client.say(channel, `@${tags.username} https://www.instagram.com/shyjinnn`);
+            break;
+        case '!fight':           
 
-        fightParticipants[tags.username] = tags.username;
-        console.log(fightParticipants);
-        if (Object.keys(fightParticipants).length >= 2){
-            textPicker = diffRandomNum(textPicker, 3);
-            fightersArr = Object.values(fightParticipants);
-            const randomNum = Math.floor(Math.random() * (fightersArr.length));
-            console.log(randomNum);
-            console.log(`A ${fightersArr[randomNum]} was rolled`);
+            fightParticipants[tags.username] = tags.username;
+            console.log(fightParticipants);
+            if (Object.keys(fightParticipants).length >= 2){
+                textPicker = diffRandomNum(textPicker, 3);
+                fightersArr = Object.values(fightParticipants);
+                const randomNum = Math.floor(Math.random() * (fightersArr.length));
+                console.log(randomNum);
+                console.log(`A ${fightersArr[randomNum]} was rolled`);
 
-            if (textPicker == 0){
-                client.say(channel, `@${fightersArr[randomNum]} won the fight!`);
-            } else if (textPicker == 1){
-                client.say(channel, `@${fightersArr[randomNum]} has emerged victorious!`);
-            } else if (textPicker == 2){
-                client.say(channel, `@${fightersArr[randomNum]} wins!`);
+                if (textPicker == 0){
+                    client.say(channel, `@${fightersArr[randomNum]} won the fight!`);
+                } else if (textPicker == 1){
+                    client.say(channel, `@${fightersArr[randomNum]} has emerged victorious!`);
+                } else if (textPicker == 2){
+                    client.say(channel, `@${fightersArr[randomNum]} wins!`);
+                }
+                for (const key in fightParticipants){
+                    delete fightParticipants[key];
+                }
             }
-            for (const key in fightParticipants){
-                delete fightParticipants[key];
+            break;
+        case '!cooked':
+            console.log(`ableToCook: ${ableToCook}\nCooks: ${jsonData.COOKS}`);
+            if (ableToCook){
+                ableToCook = false;
+                jsonData.COOKS++;
+
+                fs.writeFileSync('./program_data.json', JSON.stringify(jsonData))
+
+                client.say(channel, `@shyjinn has been cooked ${jsonData.COOKS} time(s)`);
+
+                setTimeout(() =>{
+                    ableToCook=true;
+                }, 60000);
             }
-        }
-    } else if (message.toLowerCase() === '!cooked'){
-        console.log(`ableToCook: ${ableToCook}\nCooks: ${jsonData.COOKS}`);
-        if (ableToCook){
-            ableToCook = false;
-            jsonData.COOKS++;
-
-            fs.writeFileSync('./program_data.json', JSON.stringify(jsonData))
-
+            break;
+        case '!cooks':
             client.say(channel, `@shyjinn has been cooked ${jsonData.COOKS} time(s)`);
-
-            setTimeout(() =>{
-                ableToCook=true;
-            }, 60000);
-        }
-    } else if (message.toLowerCase() === '!cooks'){
-        client.say(channel, `@shyjinn has been cooked ${jsonData.COOKS} time(s)`);
-    } else if (message.toLowerCase() === '@jang_bot whats your opinion on toronto?'){
-        client.say(channel, 'There are more stabbings there than there are in london');
+            break
+        case '@jang_bot whats your opinion on toronto?':
+            client.say(channel, 'There are more stabbings there than there are in london');
+            break;
     }
 });
 module.exports = startTwitchBot;
