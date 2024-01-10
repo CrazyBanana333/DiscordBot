@@ -98,14 +98,14 @@ refreshToken(startBot);
 client.on('ready', (c) => {
     console.log(`${c.user.tag} is logged in`);
 //MAKE SURE YOU WONT MAX OUT YOUTUBE API BEFORE UNCOMMENTING THESE
-    // getVideo(process.env.APIKEY, initializeDate);
-    // setInterval(function(){
-    //      streamRequest(process.env.AUTHCODE, process.env.CLIENTID, pollLive)
+    getVideo(process.env.APIKEY, initializeDate);
+    setInterval(function(){
+         streamRequest(process.env.AUTHCODE, process.env.CLIENTID, pollLive)
 
-    // }, 120000)
-    // setInterval(function(){
-    //     getVideo(process.env.APIKEY, pollVideo)
-    // }, 900000)
+    }, 120000)
+    setInterval(function(){
+        getVideo(process.env.APIKEY, pollVideo)
+    }, 900000)
 
     client.user.setPresence({
         activities: [{
