@@ -147,7 +147,7 @@ client.on('messageCreate', (message) => {
         }
     if (message.content === 'is shyjinn live rn?'){
         //streamRequest(process.env.AUTHCODE, process.env.CLIENTID, ifLive)
-        if(isHeLive){
+        if(jsonData.isLive){
             message.reply("You bet your ass he is");
         } else {
             message.reply("I wish :(");
