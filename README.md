@@ -1,3 +1,6 @@
+# V 0.6.2
+- changed some if statements to case switch because im better than yandere dev
+
 # V 0.6.1
 - hopefully fixed "is shyjinn live rn?" crash
 
