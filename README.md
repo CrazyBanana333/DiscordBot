@@ -1,3 +1,5 @@
+# V 0.7.6
+- Fixed token refresh crash
 
 # V 0.7.5
 - Seperated index.js into 2 files for the twitch and discord bots for better pm2 usage
@@ -6,10 +8,10 @@
 - Added randomized status messages
 
 # V 0.6.2
-- changed some if statements to case switch because im better than yandere dev
+- Changed some if statements to case switch because im better than yandere dev
 
 # V 0.6.1
-- hopefully fixed "is shyjinn live rn?" crash
+- Hopefully fixed "is shyjinn live rn?" crash
 
 # V 0.6.0
 - Added code to repository
