@@ -1,3 +1,7 @@
+
+# V 0.7.5
+- Seperated index.js into 2 files for the twitch and discord bots for better pm2 usage
+
 # V 0.7.0
 - Added randomized status messages
 
