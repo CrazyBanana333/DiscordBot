@@ -19,6 +19,8 @@ var jsonData = JSON.parse(data);
 
 var access_token = jsonData.OAUTHTOKEN
 
+console.log(access_token);
+
 cooks = jsonData.COOKS
 
 const client = new tmi.Client({
@@ -31,6 +33,8 @@ const client = new tmi.Client({
 });
 
 async function startTwitchBot(){
+    const data = fs.readFileSync('./program_data.json', {encoding: 'utf-8', flag: 'r'});
+    client.opts.identity.password = 'oauth:' + JSON.parse(data).OAUTHTOKEN
     client.connect();
 };
 
