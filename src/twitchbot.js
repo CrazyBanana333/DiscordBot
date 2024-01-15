@@ -74,7 +74,8 @@ client.on('message', (channel, tags, message, self) => {
             client.say(channel, `@${tags.username} https://www.instagram.com/shyjinnn`);
             break;
         case '!discord':
-            client.say(channel, `@${tags.username} https://discord.com/invite/DNfkvfn6kZ`)
+            client.say(channel, `@${tags.username} https://discord.com/invite/DNfkvfn6kZ`);
+            break;
         case '!fight':           
 
             fightParticipants[tags.username] = tags.username;
