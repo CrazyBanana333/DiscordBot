@@ -29,6 +29,7 @@ const client = new tmi.Client({
         username: 'jang_bot',
         password: 'oauth:' + access_token
     },
+    connection: {reconnect: true, },
     channels: [ 'shyjinn' ]
 });
 
@@ -52,10 +53,6 @@ function diffRandomNum(prevNum, max){
 
 var fightParticipants = {}
 var textPicker = 0;
-
-client.on('ping', () =>{
-    client.ping();
-});
 
 client.on('message', (channel, tags, message, self) => {
     if(self) return;
