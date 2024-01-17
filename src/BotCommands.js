@@ -19,6 +19,42 @@ const commands = [
                 required: true,
             },
         ],
+    },
+    {
+        name: 'corpa',
+        description: 'Starts corpa',
+    },
+    {
+        name: 'buy',
+        description: 'Bet on buy for corpa',
+        options: [
+            {
+                name: 'coins',
+                description: 'amount of coins you want to bet',
+                type: ApplicationCommandOptionType.Integer,
+                required: true,
+            },
+        ],
+    },
+    {
+        name: 'sell',
+        description: 'Bet on sell for corpa',
+        options: [
+            {
+                name: 'coins',
+                description: 'amount of coins you want to bet',
+                type: ApplicationCommandOptionType.Integer,
+                required: true,
+            },
+        ],
+    },
+    {
+        name: 'coins',
+        description: 'Says how many JinnCoins you have'
+    },
+    {
+        name: 'dc',
+        description: 'Claim your daily JinnCoins'
     }
 ]
 
