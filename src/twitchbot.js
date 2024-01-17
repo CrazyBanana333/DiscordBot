@@ -53,6 +53,10 @@ function diffRandomNum(prevNum, max){
 var fightParticipants = {}
 var textPicker = 0;
 
+client.on('ping', () =>{
+    client.ping();
+});
+
 client.on('message', (channel, tags, message, self) => {
     if(self) return;
 
