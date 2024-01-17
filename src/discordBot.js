@@ -152,13 +152,13 @@ function pollLive(data){
 client.on('ready', (c) => {
     console.log(`${c.user.tag} is logged in`);
 //MAKE SURE YOU WONT MAX OUT YOUTUBE API BEFORE UNCOMMENTING THESE
-    // getVideo(process.env.APIKEY, initializeDate);
-    // setInterval(function(){
-    //      streamRequest(process.env.AUTHCODE, process.env.CLIENTID, pollLive)
-    // }, 120000)
-    // setInterval(function(){
-    //     getVideo(process.env.APIKEY, pollVideo)
-    // }, 900000)
+    getVideo(process.env.APIKEY, initializeDate);
+    setInterval(function(){
+         streamRequest(process.env.AUTHCODE, process.env.CLIENTID, pollLive)
+    }, 120000)
+    setInterval(function(){
+        getVideo(process.env.APIKEY, pollVideo)
+    }, 900000)
 
     newStatus = Math.floor(Math.random() * 4);
         switch (newStatus){
@@ -342,7 +342,9 @@ client.on('interactionCreate', (interaction) => {
         }
         break;
     case 'dc':
-        if (interaction.user.id in dailyCoinUserDates){
+        if (!(interaction.user.id in jinnCoinUserStore)){
+        interaction.reply({content: `You don't have any coins yet! Do /coins to get started`, ephemeral: true});  
+        } else if (interaction.user.id in dailyCoinUserDates){
             lastCalled = Date.parse(dailyCoinUserDates[interaction.user.id])
             now = new Date();
             if (now - lastCalled > 1000 * 60 * 60 * 24){
@@ -356,6 +358,7 @@ client.on('interactionCreate', (interaction) => {
             }
         } else {
             dailyCoinUserDates[interaction.user.id] = new Date();
+            jinnCoinUserStore[interaction.user.id] += 100
             fs.writeFileSync('./jinnCoinUserStore.json', JSON.stringify(jinnCoinUserStore));
             interaction.reply({content: `You have now claimed your daily 100 JinnCoins. You now have ${jinnCoinUserStore[interaction.user.id]} JinnCoins`, ephemeral: true});
             fs.writeFileSync('./dailyCoinUserDates.json', JSON.stringify(dailyCoinUserDates));
