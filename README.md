@@ -1,3 +1,12 @@
+# V 0.8.0
+- Added /dc
+- Added /coins
+- Added /corpa
+- Added /buy
+- Added /sell
+- Attempted to fix twitch bots ping timeout error
+- idk i might have forgotten other stuff
+
 # V 0.7.6
 - Fixed token refresh crash
 
