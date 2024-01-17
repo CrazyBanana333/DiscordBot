@@ -19,8 +19,6 @@ var jsonData = JSON.parse(data);
 
 var access_token = jsonData.OAUTHTOKEN
 
-console.log(access_token);
-
 cooks = jsonData.COOKS
 
 const client = new tmi.Client({
@@ -53,6 +51,11 @@ function diffRandomNum(prevNum, max){
 
 var fightParticipants = {}
 var textPicker = 0;
+
+client.on('ping', () => {
+    console.log('ping');
+    client.ping();
+  });
 
 client.on('message', (channel, tags, message, self) => {
     if(self) return;
