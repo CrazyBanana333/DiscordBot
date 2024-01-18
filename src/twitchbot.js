@@ -52,10 +52,10 @@ function diffRandomNum(prevNum, max){
 var fightParticipants = {}
 var textPicker = 0;
 
-client.on('ping', () => {
-    console.log('ping');
+setInterval(() => {
     client.ping();
-  });
+}, 300000);
+
 
 client.on('message', (channel, tags, message, self) => {
     if(self) return;

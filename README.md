@@ -1,3 +1,10 @@
+# V 0.8.2
+- attempted to fix twitch bot disconnecting (for like the 4th time)
+
+# V 0.8.1
+- remembered to re enable twitch and youtube notifications
+- fixed /dc (thanks katherine)
+
 # V 0.8.0
 - Added /dc
 - Added /coins
