@@ -9,7 +9,6 @@ console.log('STARTING BOT');
 
 //timeout to kill bot
 setTimeout(() =>  {
-    clearInterval(interval);
     client.disconnect();
     console.log('TWITCH DISCONNECTED...')
 }, (4*60*60*1000));
@@ -32,10 +31,11 @@ const client = new tmi.Client({
     channels: [ 'shyjinn' ]
 });
 
+var interval = setInterval(() => {
+    client.ping();
+}, 300000);
+
 async function startTwitchBot(){
-    var interval = setInterval(() => {
-        client.ping();
-    }, 300000);
     const data = fs.readFileSync('./program_data.json', {encoding: 'utf-8', flag: 'r'});
     client.opts.identity.password = 'oauth:' + JSON.parse(data).OAUTHTOKEN
     client.connect();
