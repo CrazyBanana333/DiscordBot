@@ -7,11 +7,6 @@ var ableToCook = true;
 
 console.log('STARTING BOT');
 
-
-const interval = setInterval(() => {
-    client.ping();
-}, 300000);
-
 //timeout to kill bot
 setTimeout(() =>  {
     clearInterval(interval);
@@ -38,6 +33,9 @@ const client = new tmi.Client({
 });
 
 async function startTwitchBot(){
+    var interval = setInterval(() => {
+        client.ping();
+    }, 300000);
     const data = fs.readFileSync('./program_data.json', {encoding: 'utf-8', flag: 'r'});
     client.opts.identity.password = 'oauth:' + JSON.parse(data).OAUTHTOKEN
     client.connect();
