@@ -234,7 +234,7 @@ corpaEmbed = new EmbedBuilder()
         { name: 'To bet on buy:' + '\u2800'.repeat(3), value: 'Do /buy\n\n**Coins on buy:**\n0 Jinn Coins', inline: true},
 
         { name: 'To bet on sell:' + '\u2800'.repeat(3), value: 'Do /sell\n\n**Coins on sell:**\n0 Jinn Coins', inline:true},
-        { name: '\u2800', value: '\n**Time Left:**\n30 mins', inline: true},
+        { name: '\u2800', value: '\n**Time Left:**\n60 mins', inline: true},
     )
 
 buyWinEmbed = new EmbedBuilder()
@@ -253,7 +253,7 @@ var sellBetTotal = 0;
 
 var corpaStarted = false;
 
-var corpaTimer = 30;
+var corpaTimer = 60;
 var corpaInterval;
 
 var corpaMessage = 'empty';
@@ -367,11 +367,12 @@ client.on('interactionCreate', (interaction) => {
     }
 })
 
-const job = schedule.scheduleJob('0 18 * * *', startCorpa);
+const job = schedule.scheduleJob('0 18 * * SAT', startCorpa);
 
 function startCorpa(){
     console.log('corpa has been initiated');
         if (!corpaStarted){
+            corpaTimer = 60;
             corpaStarted = true;  
 
             client.channels.fetch('1197001022204297357')

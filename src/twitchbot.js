@@ -7,8 +7,14 @@ var ableToCook = true;
 
 console.log('STARTING BOT');
 
+
+const interval = setInterval(() => {
+    client.ping();
+}, 300000);
+
 //timeout to kill bot
 setTimeout(() =>  {
+    clearInterval(interval);
     client.disconnect();
     console.log('TWITCH DISCONNECTED...')
 }, (4*60*60*1000));
@@ -52,9 +58,6 @@ function diffRandomNum(prevNum, max){
 var fightParticipants = {}
 var textPicker = 0;
 
-setInterval(() => {
-    client.ping();
-}, 300000);
 
 
 client.on('message', (channel, tags, message, self) => {
