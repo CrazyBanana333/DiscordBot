@@ -389,7 +389,7 @@ function startCorpa(){
                 clearInterval(corpaInterval);
                 endCorpa()
                 corpaStarted = false;
-            }, 1800000);
+            }, 3600000);
         } else {
             interaction.reply({content: 'corpa has already been started', ephemeral: true});
         }
