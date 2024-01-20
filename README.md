@@ -1,3 +1,6 @@
+# V 0.8.3
+- added corpa investor ping
+
 # V 0.8.2
 - attempted to fix twitch bot disconnecting (for like the 4th time)
 
