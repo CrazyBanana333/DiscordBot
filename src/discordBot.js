@@ -377,11 +377,11 @@ function startCorpa(){
 
             client.channels.fetch('1197001022204297357')
             .then(async channel => {
-                corpaMessage = await channel.send({embeds: [corpaEmbed]});
+                corpaMessage = await channel.send({content: '<@&1198113125489197217>', embeds: [corpaEmbed]});
                 corpaInterval = setInterval(() => {
                     corpaTimer--;
                     corpaEmbed.data.fields[2].value = '\n**Time Left:**\n' + corpaTimer + ' mins';
-                    corpaMessage.edit({embeds: [corpaEmbed]});
+                    corpaMessage.edit({content: '<@&1198113125489197217>', embeds: [corpaEmbed]});
                 }, 60000)
             })
             
@@ -455,7 +455,7 @@ client.on('messageCreate', (message) => {
             }
             break;
         case 'test':
-            //message.reply('winnig');
+            message.reply({content: '<@&1198113125489197217>', embeds: [corpaEmbed]})
             break;
         case 'date':
             //message.reply(mostRecentUploadDate.toString());
