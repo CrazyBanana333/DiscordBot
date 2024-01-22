@@ -1,2 +1,4 @@
 .env
-data
+data/dailyCoinUserDates.json
+data/jinnCoinUserStore.json
+data/program_data.json
