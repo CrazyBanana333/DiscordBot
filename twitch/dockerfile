@@ -1,0 +1,9 @@
+FROM node:20
+
+WORKDIR /JangBot
+
+COPY . ./
+
+RUN npm install
+
+CMD [ "node", "./scripts/startTwitchBot.js" ]

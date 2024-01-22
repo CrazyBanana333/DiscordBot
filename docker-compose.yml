@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  twitch_bot:
+    build: 
+      context: https://github.com/CrazyBanana333/JangBot
+      dockerfile: ./twitch/dockerfile
+    container_name: twitch_bot
+    restart: unless-stopped
+    volumes:
+      - ./data:/data
+  discord_bot:
+    build: 
+      context: https://github.com/CrazyBanana333/JangBot
+      dockerfile: ./discord/dockerfile
+    container_name: discord_bot_bot
+    restart: unless-stopped
+    volumes:
+      - ./data:/data
+

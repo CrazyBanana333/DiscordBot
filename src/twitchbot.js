@@ -11,7 +11,10 @@ console.log('STARTING BOT');
 setTimeout(() =>  {
     client.disconnect();
     console.log('TWITCH DISCONNECTED...')
-}, (4*60*60*1000));
+    process.exit(0);
+}, (60*1000));
+//(4*60*60*1000)
+
 
 const data = fs.readFileSync('./data/program_data.json', {encoding: 'utf-8', flag: 'r'});
 var jsonData = JSON.parse(data);

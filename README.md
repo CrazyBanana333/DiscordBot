@@ -1,3 +1,6 @@
+# V 0.8.4
+- moved around some files
+
 # V 0.8.3
 - added corpa investor ping
 
