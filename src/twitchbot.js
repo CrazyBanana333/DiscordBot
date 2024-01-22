@@ -6,7 +6,6 @@ var cooks = 0;
 var ableToCook = true;
 
 console.log('STARTING BOT');
-console.log(fs.readdirSync('./'))
 
 //timeout to kill bot
 setTimeout(() =>  {
