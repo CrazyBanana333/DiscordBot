@@ -8,7 +8,7 @@ services:
     container_name: twitch_bot
     restart: unless-stopped
     volumes:
-      - ./data:./data
+      - ./data:/data
   discord_bot:
     build: 
       context: ./
@@ -16,5 +16,5 @@ services:
     container_name: discord_bot
     restart: unless-stopped
     volumes:
-      - ./data:./data
+      - ./data:/data
 
