@@ -8,4 +8,6 @@ RUN npm install
 
 COPY . .
 
+VOLUME /data
+
 CMD [ "node", "./scripts/startDiscordBot.js" ]
