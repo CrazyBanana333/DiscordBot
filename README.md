@@ -1,3 +1,6 @@
+# V 0.9.0
+- added docker
+
 # V 0.8.4
 - moved around some files
 
