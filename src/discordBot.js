@@ -151,14 +151,15 @@ function pollLive(data){
 //YOUTUBE AND TWITCH POLLING
 client.on('ready', (c) => {
     console.log(`${c.user.tag} is logged in`);
+    console.log('Current directory: ' + process.cwd());
 //MAKE SURE YOU WONT MAX OUT YOUTUBE API BEFORE UNCOMMENTING THESE
-    getVideo(process.env.APIKEY, initializeDate);
-    setInterval(function(){
-         streamRequest(process.env.AUTHCODE, process.env.CLIENTID, pollLive)
-    }, 120000)
-    setInterval(function(){
-        getVideo(process.env.APIKEY, pollVideo)
-    }, 900000)
+    // getVideo(process.env.APIKEY, initializeDate);
+    // setInterval(function(){
+    //      streamRequest(process.env.AUTHCODE, process.env.CLIENTID, pollLive)
+    // }, 120000)
+    // setInterval(function(){
+    //     getVideo(process.env.APIKEY, pollVideo)
+    // }, 900000)
 
     newStatus = Math.floor(Math.random() * 4);
         switch (newStatus){
