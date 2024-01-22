@@ -151,7 +151,6 @@ function pollLive(data){
 //YOUTUBE AND TWITCH POLLING
 client.on('ready', (c) => {
     console.log(`${c.user.tag} is logged in`);
-    fs.writeFileSync('./data/store/jinnCoinUserStore.json', '{}');
 //MAKE SURE YOU WONT MAX OUT YOUTUBE API BEFORE UNCOMMENTING THESE
     // getVideo(process.env.APIKEY, initializeDate);
     // setInterval(function(){

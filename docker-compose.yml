@@ -8,7 +8,7 @@ services:
     container_name: twitch_bot
     restart: unless-stopped
     volumes:
-      - /mnt/disk1/JangBot/data:/JangBot/data
+      - /mnt/disk1/JangBot/data:/data
   discord_bot:
     build: 
       context: ./
@@ -16,5 +16,5 @@ services:
     container_name: discord_bot
     restart: unless-stopped
     volumes:
-      - /mnt/disk1/JangBot/data/store:/JangBot/store/data
+      - /mnt/disk1/JangBot/data:/data
 
