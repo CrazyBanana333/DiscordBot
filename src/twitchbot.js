@@ -13,8 +13,7 @@ setTimeout(() =>  {
     console.log('TWITCH DISCONNECTED...')
 }, (4*60*60*1000));
 
-const data = fs.readFileSync('./program_data.json', {encoding: 'utf-8', flag: 'r'});
-
+const data = fs.readFileSync('./data/program_data.json', {encoding: 'utf-8', flag: 'r'});
 var jsonData = JSON.parse(data);
 
 var access_token = jsonData.OAUTHTOKEN
@@ -36,7 +35,7 @@ var interval = setInterval(() => {
 }, 300000);
 
 async function startTwitchBot(){
-    const data = fs.readFileSync('./program_data.json', {encoding: 'utf-8', flag: 'r'});
+    const data = fs.readFileSync('./data/program_data.json', {encoding: 'utf-8', flag: 'r'});
     client.opts.identity.password = 'oauth:' + JSON.parse(data).OAUTHTOKEN
     client.connect();
 };
@@ -110,7 +109,7 @@ client.on('message', (channel, tags, message, self) => {
                 ableToCook = false;
                 jsonData.COOKS++;
 
-                fs.writeFileSync('./program_data.json', JSON.stringify(jsonData))
+                fs.writeFileSync('./data/program_data.json', JSON.stringify(jsonData))
 
                 client.say(channel, `@shyjinn has been cooked ${jsonData.COOKS} time(s)`);
 

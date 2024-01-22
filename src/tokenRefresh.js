@@ -2,7 +2,7 @@ var fs = require('fs');
 const request = require("request");
 require('dotenv').config();
 async function refreshToken(callbackWithNewToken) {
-    fs.readFile('./program_data.json', 'utf8', (err, data) => {
+    fs.readFile('./data/program_data.json', 'utf8', (err, data) => {
         if (err) {
             console.error('Error reading file:', err);
         }
@@ -30,7 +30,7 @@ async function refreshToken(callbackWithNewToken) {
 
             const newData = JSON.stringify(jsonData)
 
-            fs.writeFileSync('./program_data.json', newData);
+            fs.writeFileSync('./data/program_data.json', newData);
             console.log('TOKEN WRITTEN TO FILE SUCCESSFULLY');
             callbackWithNewToken();
 

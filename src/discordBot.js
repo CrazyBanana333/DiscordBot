@@ -4,7 +4,7 @@ const getVideo = require('./YoutubeRequest.js');
 const streamRequest = require('./TwitchRequest.js');
 const schedule = require('node-schedule');
 
-var jsonData = JSON.parse(fs.readFileSync('./program_data.json', {encoding: 'utf-8', flag: 'r'}));
+var jsonData = JSON.parse(fs.readFileSync('./data/program_data.json', {encoding: 'utf-8', flag: 'r'}));
 
 var mostRecentUploadDate = new Date(0);
 
@@ -51,7 +51,7 @@ function pollLive(data){
         })
 
         jsonData.isLive = false;
-        fs.writeFileSync('./program_data.json', JSON.stringify(jsonData));
+        fs.writeFileSync('./data/program_data.json', JSON.stringify(jsonData));
 
         console.log('Shyjinn is no longer live');
         return;
@@ -62,7 +62,7 @@ function pollLive(data){
         })
 
         jsonData.isLive = true;
-        fs.writeFileSync('./program_data.json', JSON.stringify(jsonData));
+        fs.writeFileSync('./data/program_data.json', JSON.stringify(jsonData));
         console.log('Shyjinn is now live');
         return;
     }
@@ -152,13 +152,13 @@ function pollLive(data){
 client.on('ready', (c) => {
     console.log(`${c.user.tag} is logged in`);
 //MAKE SURE YOU WONT MAX OUT YOUTUBE API BEFORE UNCOMMENTING THESE
-    getVideo(process.env.APIKEY, initializeDate);
-    setInterval(function(){
-         streamRequest(process.env.AUTHCODE, process.env.CLIENTID, pollLive)
-    }, 120000)
-    setInterval(function(){
-        getVideo(process.env.APIKEY, pollVideo)
-    }, 900000)
+    // getVideo(process.env.APIKEY, initializeDate);
+    // setInterval(function(){
+    //      streamRequest(process.env.AUTHCODE, process.env.CLIENTID, pollLive)
+    // }, 120000)
+    // setInterval(function(){
+    //     getVideo(process.env.APIKEY, pollVideo)
+    // }, 900000)
 
     newStatus = Math.floor(Math.random() * 4);
         switch (newStatus){
@@ -209,20 +209,20 @@ client.on('ready', (c) => {
 console.log("READING JINNCOINUSERSTORE");
 
 try{
-    jinnCoinUserStore = JSON.parse(fs.readFileSync('./jinnCoinUserStore.json', {encoding: 'utf-8'}));
+    jinnCoinUserStore = JSON.parse(fs.readFileSync('./data/jinnCoinUserStore.json', {encoding: 'utf-8'}));
 } catch {
     console.log('FILE NONEXISTANT... CREATING NEW FILE')
-    fs.writeFileSync('./jinnCoinUserStore.json', '{}');
-    jinnCoinUserStore = JSON.parse(fs.readFileSync('./jinnCoinUserStore.json', {encoding: 'utf-8'}));
+    fs.writeFileSync('./data/jinnCoinUserStore.json', '{}');
+    jinnCoinUserStore = JSON.parse(fs.readFileSync('./data/jinnCoinUserStore.json', {encoding: 'utf-8'}));
 }
 
 console.log("READING DAILYCOINUSERDATES")
 try{
-    dailyCoinUserDates = JSON.parse(fs.readFileSync('./dailyCoinUserDates.json', {encoding: 'utf-8'}));
+    dailyCoinUserDates = JSON.parse(fs.readFileSync('./data/dailyCoinUserDates.json', {encoding: 'utf-8'}));
 } catch {
     console.log('FILE NONEXISTANT... CREATING NEW FILE')
-    fs.writeFileSync('./dailyCoinUserDates.json', '{}');
-    dailyCoinUserDates = JSON.parse(fs.readFileSync('./dailyCoinUserDates.json', {encoding: 'utf-8'}));
+    fs.writeFileSync('./data/dailyCoinUserDates.json', '{}');
+    dailyCoinUserDates = JSON.parse(fs.readFileSync('./data/dailyCoinUserDates.json', {encoding: 'utf-8'}));
 }
 
 corpaEmbed = new EmbedBuilder()
@@ -285,7 +285,7 @@ client.on('interactionCreate', (interaction) => {
         } else {
             jinnCoinUserStore[interaction.user.id] = 500;
             interaction.reply({content: `Welcome <@${interaction.user.id}>! Heres ${jinnCoinUserStore[interaction.user.id]} JinnCoins to start you off`});
-            fs.writeFileSync('./jinnCoinUserStore.json', JSON.stringify(jinnCoinUserStore));
+            fs.writeFileSync('./data/jinnCoinUserStore.json', JSON.stringify(jinnCoinUserStore));
         }
         break;
     case 'buy':
@@ -305,7 +305,7 @@ client.on('interactionCreate', (interaction) => {
                 buyBetTotal += coins.value;
                 corpaEmbed.data.fields[0].value = 'Do /buy\n\n**Coins on buy:**\n' + buyBetTotal + ' Jinn Coins';
                 corpaMessage.edit({embeds: [corpaEmbed]})
-                fs.writeFileSync('./jinnCoinUserStore.json', JSON.stringify(jinnCoinUserStore));
+                fs.writeFileSync('./data/jinnCoinUserStore.json', JSON.stringify(jinnCoinUserStore));
                 interaction.reply({content: `${coins.value} JinnCoins have been bet on buy`, ephemeral: true});
                 
             }
@@ -332,7 +332,7 @@ client.on('interactionCreate', (interaction) => {
                 sellBetTotal += coins.value;
                 corpaEmbed.data.fields[1].value = 'Do /sell\n\n**Coins on sell:**\n' + sellBetTotal + ' Jinn Coins';
                 corpaMessage.edit({embeds: [corpaEmbed]})
-                fs.writeFileSync('./jinnCoinUserStore.json', JSON.stringify(jinnCoinUserStore));
+                fs.writeFileSync('./data/jinnCoinUserStore.json', JSON.stringify(jinnCoinUserStore));
                 interaction.reply({content: `${coins.value} JinnCoins have been bet on sell`, ephemeral: true});
             }
         } else if (!interaction.user.id in jinnCoinUserStore){
@@ -349,19 +349,19 @@ client.on('interactionCreate', (interaction) => {
             now = new Date();
             if (now - lastCalled > 1000 * 60 * 60 * 24){
                 jinnCoinUserStore[interaction.user.id] += 100;
-                fs.writeFileSync('./jinnCoinUserStore.json', JSON.stringify(jinnCoinUserStore));
+                fs.writeFileSync('./data/jinnCoinUserStore.json', JSON.stringify(jinnCoinUserStore));
                 interaction.reply({content: `You have now claimed your daily 100 JinnCoins. You now have ${jinnCoinUserStore[interaction.user.id]} JinnCoins`, ephemeral: true});
                 dailyCoinUserDates[interaction.user.id] = new Date();
-                fs.writeFileSync('./dailyCoinUserDates.json', JSON.stringify(dailyCoinUserDates));
+                fs.writeFileSync('./data/dailyCoinUserDates.json', JSON.stringify(dailyCoinUserDates));
             } else {
                 interaction.reply({content: `It hasn't been 24 hours yet :( come back later`, ephemeral: true});
             }
         } else {
             dailyCoinUserDates[interaction.user.id] = new Date();
             jinnCoinUserStore[interaction.user.id] += 100
-            fs.writeFileSync('./jinnCoinUserStore.json', JSON.stringify(jinnCoinUserStore));
+            fs.writeFileSync('./data/jinnCoinUserStore.json', JSON.stringify(jinnCoinUserStore));
             interaction.reply({content: `You have now claimed your daily 100 JinnCoins. You now have ${jinnCoinUserStore[interaction.user.id]} JinnCoins`, ephemeral: true});
-            fs.writeFileSync('./dailyCoinUserDates.json', JSON.stringify(dailyCoinUserDates));
+            fs.writeFileSync('./data/dailyCoinUserDates.json', JSON.stringify(dailyCoinUserDates));
         }
         break;
     }
@@ -404,7 +404,7 @@ function endCorpa(){
             console.log(`gave ${user} ${Math.floor(usersBetBuy[user] + (sellBetTotal*(usersBetBuy[user]/buyBetTotal)))} coins`)
             jinnCoinUserStore[user] += Math.floor(usersBetBuy[user] + (sellBetTotal*(usersBetBuy[user]/buyBetTotal)));
             client.users.send(user, `Congratulations! You won ${Math.floor(usersBetBuy[user] + (sellBetTotal*(usersBetBuy[user]/buyBetTotal)))} JinnCoins! Your new total is ${jinnCoinUserStore[user]}`)
-            fs.writeFileSync('./jinnCoinUserStore.json', JSON.stringify(jinnCoinUserStore));
+            fs.writeFileSync('./data/jinnCoinUserStore.json', JSON.stringify(jinnCoinUserStore));
         }
         for (const user in usersBetSell){
             client.users.send(user, `ggs. Maybe next time! Your current amount of JinnCoins is ${jinnCoinUserStore[user]}`)
@@ -416,7 +416,7 @@ function endCorpa(){
             console.log(`gave ${user} ${Math.floor(usersBetSell[user] + (buyBetTotal*(usersBetSell[user]/sellBetTotal)))} coins`)
             jinnCoinUserStore[user] += Math.floor(usersBetSell[user] + (buyBetTotal*(usersBetSell[user]/sellBetTotal)));
             client.users.send(user, `Congratulations! You won ${Math.floor(usersBetSell[user] + (buyBetTotal*(usersBetSell[user]/sellBetTotal)))} JinnCoins! Your new total is ${jinnCoinUserStore[user]}`)
-            fs.writeFileSync('./jinnCoinUserStore.json', JSON.stringify(jinnCoinUserStore));
+            fs.writeFileSync('./data/jinnCoinUserStore.json', JSON.stringify(jinnCoinUserStore));
         }
         for (const user in usersBetBuy){
             client.users.send(user, `ggs. Maybe next time! Your current amount of JinnCoins is ${jinnCoinUserStore[user]}`)
