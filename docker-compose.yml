@@ -8,9 +8,7 @@ services:
     container_name: twitch_bot
     restart: unless-stopped
     volumes:
-      - ty/mnt/disk1/JangBot/data/dailyCoinUserDates.json:/data/dailyCoinUserDates.json
-      - /mnt/disk1/JangBot/data/jinnCoinUserStore.json:/data/jinnCoinUserStore.json
-      - /mnt/disk1/JangBot/data/program_data.json:/data/program_data.json
+      - /mnt/disk1/JangBot/data:/data
   discord_bot:
     build: 
       context: ./
@@ -18,13 +16,5 @@ services:
     container_name: discord_bot
     restart: unless-stopped
     volumes:
-      - type: bind
-        source: ty/mnt/disk1/JangBot/data/dailyCoinUserDates.json
-        target: /data/dailyCoinUserDates.json
-      - type: bind
-        source: /mnt/disk1/JangBot/data/jinnCoinUserStore.json
-        target: /data/jinnCoinUserStore.json
-      - type: bind
-        source: /mnt/disk1/JangBot/data/program_data.json
-        target: /data/program_data.json
+      - /mnt/disk1/JangBot/data:/data
 
