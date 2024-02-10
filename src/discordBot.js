@@ -3,6 +3,7 @@ const fs = require('fs');
 const getVideo = require('./YoutubeRequest.js');
 const streamRequest = require('./TwitchRequest.js');
 const schedule = require('node-schedule');
+const startLeaderboardGen = require('./leaderboardGen.js');
 
 var jsonData = JSON.parse(fs.readFileSync('./data/program_data.json', {encoding: 'utf-8', flag: 'r'}));
 
@@ -422,6 +423,7 @@ function endCorpa(){
             client.users.send(user, `ggs. Maybe next time! Your current amount of JinnCoins is ${jinnCoinUserStore[user]}`)
         }
     }
+    
     corpaEmbed = new EmbedBuilder()
     .setColor(0x21aa48)
     .setTitle('CORPA')
@@ -437,9 +439,33 @@ function endCorpa(){
     buyBetTotal = 0;
     usersBetSell = {};
     usersBetBuy = {};
+
+    initLeaderboard();
 }
 
-client.on('messageCreate', (message) => {    
+async function initLeaderboard(){
+    sortable = Object.entries(jinnCoinUserStore)
+        .sort(([,a],[,b]) => b-a)
+
+    clientIds = [sortable[0][0], sortable[1][0], sortable[2][0]]    
+    coinsarr = [sortable[0][1], sortable[1][1], sortable[2][1]]
+    console.log(clientIds);
+    console.log(coinsarr);
+    userarr = []
+
+    for (i = 0; i < 3; i++){
+        userarr[i] = await client.users.fetch(clientIds[i])
+    }
+
+    startLeaderboardGen(userarr, coinsarr, () => {
+        client.channels.fetch('1197001022204297357')
+        .then(async channel => {
+            channel.send({content: 'Heres the current leaderboard standing for this week!', files: ['./image_data/podium-leaderboard.png']})
+        })
+    });
+}
+
+client.on('messageCreate', async (message) => {    
     if (message.author.bot) return;
 
     switch (message.content.toLowerCase()){
@@ -453,12 +479,6 @@ client.on('messageCreate', (message) => {
             } else {
                 message.reply("I wish :(");
             }
-            break;
-        case 'test':
-            message.reply({content: '<@&1198113125489197217>', embeds: [corpaEmbed]})
-            break;
-        case 'date':
-            //message.reply(mostRecentUploadDate.toString());
             break;
     }
 }
