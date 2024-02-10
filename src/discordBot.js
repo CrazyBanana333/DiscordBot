@@ -458,12 +458,14 @@ async function initLeaderboard(ChannelID){
         userarr[i] = await client.users.fetch(clientIds[i])
     }
 
-    startLeaderboardGen(userarr, coinsarr, setTimeout(() => {
+    //DO NOT DO THIS
+    //THIS IS BY FAR THE WORST FUNCTION CALL IN THE WHOLE CODE
+    startLeaderboardGen(userarr, coinsarr, () => {setTimeout(() => {
         client.channels.fetch(ChannelID)
         .then(async channel => {
             channel.send({content: 'Heres the current leaderboard standing for this week!', files: ['./image_data/podium-leaderboard.png']})
         })
-    }, 5000));
+    }, 5000)});
 }
 
 client.on('messageCreate', async (message) => {    
