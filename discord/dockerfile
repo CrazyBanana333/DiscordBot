@@ -1,11 +1,15 @@
 FROM node:20
 
-WORKDIR /JangBot
+USER root
+
+WORKDIR /usr/JangBot
 
 COPY package*.json ./
 
 RUN npm install
 
 COPY . .
+
+RUN chmod -R 777 /usr/JangBot
 
 CMD [ "node", "./scripts/startDiscordBot.js" ]

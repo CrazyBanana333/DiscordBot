@@ -423,6 +423,8 @@ function endCorpa(){
             client.users.send(user, `ggs. Maybe next time! Your current amount of JinnCoins is ${jinnCoinUserStore[user]}`)
         }
     }
+
+    initLeaderboard('1197001022204297357');
     
     corpaEmbed = new EmbedBuilder()
     .setColor(0x21aa48)
@@ -440,10 +442,9 @@ function endCorpa(){
     usersBetSell = {};
     usersBetBuy = {};
 
-    initLeaderboard();
 }
 
-async function initLeaderboard(){
+async function initLeaderboard(ChannelID){
     sortable = Object.entries(jinnCoinUserStore)
         .sort(([,a],[,b]) => b-a)
 
@@ -458,7 +459,7 @@ async function initLeaderboard(){
     }
 
     startLeaderboardGen(userarr, coinsarr, () => {
-        client.channels.fetch('1197001022204297357')
+        client.channels.fetch(ChannelID)
         .then(async channel => {
             channel.send({content: 'Heres the current leaderboard standing for this week!', files: ['./image_data/podium-leaderboard.png']})
         })
@@ -479,6 +480,9 @@ client.on('messageCreate', async (message) => {
             } else {
                 message.reply("I wish :(");
             }
+            break;
+	case 'leaderboardtest':
+            initLeaderboard('1190402298262851694');
             break;
     }
 }
