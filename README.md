@@ -1,3 +1,6 @@
+# V 1.0.0
+- added the leaderboard (art done by https://www.instagram.com/oxokat)
+
 # V 0.9.0
 - added docker
 
